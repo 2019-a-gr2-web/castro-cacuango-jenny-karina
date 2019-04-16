@@ -1,0 +1,15 @@
+{
+  "llave": "valor",
+  "nombre": "Jenny",
+  "edad": 22,
+  "sueldo": 10.21,
+  "casado": false,
+  "hijos": null,
+  "mascotas": ["MAX", 1, 1.20, false, null,
+    {
+      "nombre": "MAX"
+    }
+  ]
+
+
+}
