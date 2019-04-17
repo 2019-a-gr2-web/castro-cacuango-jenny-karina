@@ -1,4 +1,4 @@
-import {Controller, Delete, Get, Headers, HttpCode, Post, Put} from '@nestjs/common';
+import {Controller, Delete, Get, Headers, HttpCode, Param, Post, Put, Query, Body, Request, Response} from '@nestjs/common';
 import { AppService } from './app.service';
 import {puts} from "util";
 import {get} from "https";
@@ -48,9 +48,74 @@ export class AppController {
         }else{
           return ':('
         }
+        // return 'ok';
+        }
 
-          return 'ok';
+
+    //Parametros de consulta (QUERY)
+        @Get('/consultar')
+    consultar(@Query() queryParams){
+        console.log(queryParams);
+        if(queryParams.nombre){
+            // return 'hola' + queryParams
+            return `hola ${queryParams.nombre}`
+
+        }else{
+            return `hola extraño`
+        }
     }
+
+    //parametros de ruta
+
+    @Get('/ciudad/:idCuidad')
+    ciudad(@Param() parametrosRuta){
+      switch (parametrosRuta.idCiudad.toLowerCase()){
+          case 'Quito':
+              return 'Hola';
+          case 'Guayaquil':
+              return 'Dame majagua'
+          default:
+              return "que mas"
+      }
+    }
+    //parametros de cuerpo
+    @Post('registroComida')
+    registroComida(@Body() parametrosCuerpo, @Request() request){
+      console.log(request.body);
+      console.log(parametrosCuerpo);
+        return 'ok'
+    }
+
+    @Post('registroComida1')
+    registroComida1(@Body() parametrosCuerpo, @Response () response){
+      if(parametrosCuerpo.nombre && parametrosCuerpo.cantidad){
+
+          const cantidad = Number(parametrosCuerpo.cantidad);
+          if(parametrosCuerpo.cantidad > 1){
+              //enviar cabeceras de respuesta
+              response.set('premio', 'guatita') ;
+
+          }
+          return response.send({mensaje: 'registro creado'})
+
+      }else{
+          return response.status(400).send({mensaje: 'error, no envia nombre o cantidad', error: 400})
+      }
+
+    }
+
+    @Get('/semilla')
+    semilla(@Request() request){
+      console.log(request.cookies);
+      //crear cookie
+        const cookies = request.cookies;
+        if(cookies.micookie){
+            return 'ok'
+
+        }else{
+            return ':('
+        }
+          }
 
     /*
     //datos primitivos
