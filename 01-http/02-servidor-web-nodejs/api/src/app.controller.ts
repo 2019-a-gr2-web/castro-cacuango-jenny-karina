@@ -10,6 +10,7 @@ import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
 //@Controller(segmentoInicial)
 @Controller('/api')
 export class AppController {
+
   constructor(private readonly appService: AppService) {}
 
 
@@ -54,14 +55,16 @@ export class AppController {
 
     //Parametros de consulta (QUERY)
         @Get('/consultar')
-    consultar(@Query() queryParams){
-        console.log(queryParams);
-        if(queryParams.nombre){
+        consultar(@Query() queryParams){
+            console.log(queryParams);
+            if (queryParams.nombre){
+                return `hola ${queryParams.nombre}`
+            }
+           // if(queryParams.nombre){
             // return 'hola' + queryParams
-            return `hola ${queryParams.nombre}`
-
-        }else{
-            return `hola extraño`
+            //    return `hola ${queryParams.nombre}`
+        else{
+            return 'hola extraño'
         }
     }
 
@@ -70,9 +73,9 @@ export class AppController {
     @Get('/ciudad/:idCuidad')
     ciudad(@Param() parametrosRuta){
       switch (parametrosRuta.idCiudad.toLowerCase()){
-          case 'Quito':
+          case 'quito':
               return 'Hola';
-          case 'Guayaquil':
+          case 'guayaquil':
               return 'Dame majagua'
           default:
               return "que mas"
@@ -101,7 +104,6 @@ export class AppController {
       }else{
           return response.status(400).send({mensaje: 'error, no envia nombre o cantidad', error: 400})
       }
-
     }
 
     @Get('/semilla')
