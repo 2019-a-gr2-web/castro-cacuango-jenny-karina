@@ -1,5 +1,9 @@
 import {Controller, Delete, Get, Headers, HttpCode, Param, Post, Put, Query, Body, Request, Response} from '@nestjs/common';
 import { AppService } from './app.service';
+import * as Joi from '@hapi/joi';
+
+
+
 import {puts} from "util";
 import {get} from "https";
 import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
@@ -12,7 +16,6 @@ import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
 export class AppController {
 
   constructor(private readonly appService: AppService) {}
-
 
 //@Controller(segmentoAccion)
     @Get('/hello-world') // Metodo http
@@ -52,7 +55,6 @@ export class AppController {
         // return 'ok';
         }
 
-
     //Parametros de consulta (QUERY)
         @Get('/consultar')
         consultar(@Query() queryParams){
@@ -69,7 +71,6 @@ export class AppController {
     }
 
     //parametros de ruta
-
     @Get('/ciudad/:idCuidad')
     ciudad(@Param() parametrosRuta){
       switch (parametrosRuta.idCiudad.toLowerCase()){
@@ -107,15 +108,45 @@ export class AppController {
     }
 
     @Get('/semilla')
-    semilla(@Request() request){
-      console.log(request.cookies);
+    semilla(@Request() request, @Response() response){
+      console.log(request.cookies); //obtener cookies no seguras
       //crear cookie
-        const cookies = request.cookies;
-        if(cookies.micookie){
-            return 'ok'
+        const cookies = request.cookies; //JSON
+        const esquemaValidacionNumero= Joi.object().keys({
+            numero : Joi.number().integer().required()
+        });
 
+        const objetoValidacion ={
+            numero: cookies.numero
+        };
+        const resultado = Joi.validate(objetoValidacion, esquemaValidacionNumero);
+        if (resultado.error){
+            console.log('resultado: ', resultado);
         }else{
-            return ':('
+            console.log('numero valido');
+        }
+
+        const cookieSegura =request.signedCookies.fechaServidor; //obtiene cookies seguras
+        if(cookieSegura){
+            console.log('Cookie segura');
+        }else{
+            console.log('No es valida esta cookie');
+        }
+
+        if(cookies.micookie){
+            const horaFechaServidor = new Date();
+            const minutos = horaFechaServidor.getMinutes();
+            horaFechaServidor.setMinutes(minutos+1);
+            //devolver una nueva cookie con nueva fecha
+            response.cookie('fechaServidor',  //nombre
+                new Date().getTime(), //valor
+                {
+                    //OPCIONES
+                    expires : new Date()
+                });
+            return response.send('ok');
+        }else{
+            return response.send(':(');
         }
           }
 
@@ -123,7 +154,6 @@ export class AppController {
     //datos primitivos
   //js -ts
   */
-
 
     /*
 var nombre= 'JENNY'; //string
@@ -148,8 +178,6 @@ let alas1 = undefined;
   3 Segmento accion : PUT '-----'
   4 Segmento accion : DELETE '-----'
      */
-
-
 
 }
 /*
@@ -177,7 +205,6 @@ class usuario {
 
 const json = [
     {"llave":"valor"}
-
 ]
 ;
 
@@ -197,3 +224,16 @@ objeto['propiedadTres'] = 'VALOR 3';
 //Eliminar propiedad
 delete objeto.propiedadTres; //--> //destruir
 objeto.propiedadTres = undefined;
+
+//Deber para mañana
+//crear una ruta con metodo y nombre (NOMBRE DE LA COOKIE) cualquiera
+//guardar nombre del usuario en una cookie insegura
+//en la calculadora devolver un objeto json
+//nombre del usuario y resultado
+
+//Deber para el martes 30
+// cuando el usuario utilice la calculadora por primera vez el sistema va a guardar una cookie segura
+//con valor de 100
+//al ejecutar la calculaora el resultado restar del total de la cooki segura
+
+//al llegar a cero arreglar al objeto json un mensaje 'se le terminaron sus puntos'
