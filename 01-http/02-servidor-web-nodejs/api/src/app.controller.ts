@@ -171,7 +171,7 @@ export class AppController {
             const resultado = Math.round(Math.random() *10);
             const user = queryParams.nombre
             response.cookie(user, resultado);
-            response.status(200).send({'Usuario: ': `${user}`, 'Resultado: ': `${resultado}` });;
+            response.status(200).send({'NombreUsuario: ': `${user}`, 'Resultado: ': `${resultado}` });;
         }
     }
 
