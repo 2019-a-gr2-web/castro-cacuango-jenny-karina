@@ -169,10 +169,17 @@ export class AppController {
             response.status(400).send({mensaje: 'Error, Nombre de usuario no es válido', error: 400});
         }else{
             const resultados = Math.round(Math.random() *10);
-            const user = queryParams.nombre
+            const user = queryParams.nombre;
             response.cookie(user, resultados);
             response.status(200).send({'NombreUsuario: ': `${user}`, 'Resultado: ': `${resultados}` });;
         }
+    }
+
+
+    @Get('inicio')
+    inicio(@Response() res){
+      return res.render('inicio');
+
     }
 
     /*
@@ -262,3 +269,90 @@ objeto.propiedadTres = undefined;
 //al ejecutar la calculaora el resultado restar del total de la cooki segura
 
 //al llegar a cero arreglar al objeto json un mensaje 'se le terminaron sus puntos'
+
+
+function holaMundo() {
+    console.log('hola mundo');
+}
+
+const respuesraHolaMundo = holaMundo();
+console.log('resp hola mundo: ', respuesraHolaMundo);
+
+function  suma(a:number,b:number):number {
+    return a+ b;
+}
+
+const respuestaSuma = suma(1,2);
+console.log('resp suma: ', respuestaSuma);
+
+
+
+//CONDICIONALES EN JS
+//truty ->true
+//falsy ->false
+
+if({}){ //truty
+    console.log('verdadero')
+
+}else {
+    console.log('falso')
+
+}
+
+//OPERADORES DE ARREGLOS EN JS
+const arreglo: any = [1, 'A', true, null, {}];
+
+
+
+//1)imprimir todos los elementos
+//2)sumen 2 a los pares y 1 a los impares
+//3)encontrar si hay n°4
+//4)filtrar menores a 5
+//5)todos los valores son positivos?
+//6)algun valor es menor q 2
+//7)sumar todos los valores
+//8)restar todos los valores de 100
+
+//1.1)sumen 10 a todos
+//2.1)filtrar mayores a 15
+//3.1)
+
+
+//UNO
+const arregloNumerosForEach = [1,2,3,4,5,6];
+arregloNumerosForEach.forEach(function (valorActual, indice, arreglo) {
+    console.log(`valor: ${valorActual}`);
+    console.log(`indice: ${indice}`);
+    console.log(`arreglo: ${arreglo}`);
+});
+
+const rForEach = arregloNumerosForEach.forEach(function (valorActal) {
+    console.log(`arreglo: ${valorActal}`);
+})
+console.log(`respuesta ForEach ${rForEach}`);
+
+//DOS
+const arregloNumerosMap = [1,2,3,4,5,6];
+const rMap = arregloNumerosMap.map((valorActual)=>{
+    const esPar = valorActual %2 ==0;
+    if(esPar){
+        const nuevoValor = valorActual +2;
+    }else{
+        const nuevoValor = valorActual +1;
+    }
+})
+
+
+const arregloNumerosFind = [1,2,3,4,5,6];
+const rFind = arregloNumerosFind.find((valorActual)=>{
+    return valorActual ==4;
+}
+);
+console.log(`valor actual: ${rFind}`);
+
+const arregloNumerosFilter = [1,2,3,4,5,6];
+const rFilter = arregloNumerosFilter.filter((valorActual)=>{
+        return valorActual < 5;
+    }
+);
+console.log(`valor actual: ${rFilter}`);
