@@ -150,6 +150,31 @@ export class AppController {
         }
           }
 
+          //-------------------------------------------------------//
+                                    // DEBER 02 //
+
+    @Get('/setearNombre')
+    cookieUsuario(@Query() queryParams, @Request() request, @Response() response){
+
+      const cookie = request.cookies;
+      const esquemaValidacion= Joi.object().keys({
+            usuario : Joi.string().required()
+        });
+
+        const objetoValidacion ={
+            usuario: queryParams.nombre
+        };
+        const validacion = Joi.validate(objetoValidacion, esquemaValidacion);
+        if (validacion.error){
+            response.status(400).send({mensaje: 'Error, Nombre de usuario no es válido', error: 400});
+        }else{
+            const resultados = Math.round(Math.random() *10);
+            const user = queryParams.nombre
+            response.cookie(user, resultados);
+            response.status(200).send({'NombreUsuario: ': `${user}`, 'Resultado: ': `${resultados}` });;
+        }
+    }
+
     /*
     //datos primitivos
   //js -ts
