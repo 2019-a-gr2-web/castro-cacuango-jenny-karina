@@ -168,10 +168,10 @@ export class AppController {
         if (validacion.error){
             response.status(400).send({mensaje: 'Error, Nombre de usuario no es válido', error: 400});
         }else{
-            const resultado = Math.round(Math.random() *10);
+            const resultados = Math.round(Math.random() *10);
             const user = queryParams.nombre
-            response.cookie(user, resultado);
-            response.status(200).send({'NombreUsuario: ': `${user}`, 'Resultado: ': `${resultado}` });;
+            response.cookie(user, resultados);
+            response.status(200).send({'NombreUsuario: ': `${user}`, 'Resultado: ': `${resultados}` });;
         }
     }
 
