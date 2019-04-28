@@ -123,12 +123,12 @@ export class AppController {
         if (resultado.error){
             console.log('resultado: ', resultado);
         }else{
-            console.log('numero valido');
+            console.log('numero valido ok');
         }
 
-        const cookieSegura =request.signedCookies.fechaServidor; //obtiene cookies seguras
+        const cookieSegura =request.signedCookies.fechaServidor; //obtiene cookies seguras con nombre fechaServidor
         if(cookieSegura){
-            console.log('Cookie segura');
+            console.log('Cookie segura', cookieSegura);
         }else{
             console.log('No es valida esta cookie');
         }
@@ -138,16 +138,21 @@ export class AppController {
             const minutos = horaFechaServidor.getMinutes();
             horaFechaServidor.setMinutes(minutos+1);
             //devolver una nueva cookie con nueva fecha
+            //response.cookie('fechaServidor', new Date().getTime());
             response.cookie('fechaServidor',  //nombre
-                new Date().getTime(), //valor
-                {
-                    //OPCIONES
-                    expires : new Date()
-                });
+              new Date().getTime(), //valor
+            {
+            //OPCIONES
+            //expires : horaFechaServidor
+            signed:true
+            });
             return response.send('ok');
         }else{
             return response.send(':(');
         }
+
+
+
           }
 
           //-------------------------------------------------------//
@@ -235,6 +240,7 @@ class usuario {
 }
 */
 
+/*
 const json = [
     {"llave":"valor"}
 ]
@@ -356,3 +362,6 @@ const rFilter = arregloNumerosFilter.filter((valorActual)=>{
     }
 );
 console.log(`valor actual: ${rFilter}`);
+
+
+ */

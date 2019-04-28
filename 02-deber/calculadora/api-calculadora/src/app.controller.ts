@@ -1,5 +1,6 @@
 import {Controller, Get, Headers, Response, Post, Body, HttpCode, Put, Query, Delete, Header} from '@nestjs/common';
 import { AppService } from './app.service';
+import * as Joi from '@hapi/joi';
 
 @Controller('/calculadora')
 export class AppController {
