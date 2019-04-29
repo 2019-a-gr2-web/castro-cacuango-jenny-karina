@@ -75,16 +75,59 @@ export class AppController {
 
     @Post('/resta')
     @HttpCode(201)
-    restar(@Body() body, @Response() resta) {
+    restar(@Body() body, @Response() response, @Request() request) {
+        const cookieSegura = request.signedCookies;
+        const cookies = request.cookies;
+
+        const esquemaValidacion= Joi.object().keys({
+            nombre : Joi.string().required()
+        });
+
+        const objetoValidacion ={
+            nombre: cookies.userName
+        };
+        const respuesta = Joi.validate(objetoValidacion, esquemaValidacion);
+
         if(body.numero1 && body.numero2){
+
             const numeroUno = Number(body.numero1);
             const numeroDos = Number(body.numero2);
-            //console.log(headers);
-            const respuesta = numeroUno - numeroDos;
-            resta.status(201).send({'El valor de la resta es: ': `${respuesta}`});
-        }else{
-            resta.status(400).send({mensaje: 'Error, parámetros erróneos', error: 400});
+
+            const resultado = numeroUno - numeroDos;
+            
+            const cookieSeguras =request.signedCookies.nombre;
+
+            if(cookieSeguras){
+                console.log('Cookie segura', cookieSeguras);
+            }else{
+                console.log('No es valida esta cookie');
+            }
+
+            if(!cookieSegura.userName){
+                response.cookie('nombre', 'Jenny', {signed:true});
+            }
+            if(!cookieSegura.valor){
+                response.cookie('valor', 100, {signed:true})
+            }
+
+            const intento= cookieSegura.valor - resultado;
+            if(intento<=0){
+                response.cookie('valor', 100, {signed:true})
+                response.status(201).send({NombreUsuario: `${cookieSeguras}`,
+                    Resultado: `${resultado}`,
+                    Mensaje: "Se terminaron sus puntos"})
+            }else{
+                response.cookie('valor', intento, {signed:true})
+                response.status(201).send({
+                    'NombreUsuario: ': `${cookieSeguras}`, 'Resultado: ': `${resultado}`})
+                //console.log(cookieSeguras);
+            }
+
+        }else {
+            response.status(400).send({mensaje: 'Error, Parámetros inválidos', error: 400});
         }
+
+
     }
 
     @Put('/multiplicacion')
@@ -99,6 +142,8 @@ export class AppController {
         }else{
             return mult.status(400).send({mensaje: 'Error, parámetros erróneos', error: 400});
         }
+
+
     }
 
     @Delete('/division')
