@@ -305,6 +305,10 @@ if({}){ //truty
 
 }
 
+/*
+
+ */
+
 //OPERADORES DE ARREGLOS EN JS
 const arreglo: any = [1, 'A', true, null, {}];
 
@@ -364,4 +368,74 @@ const rFilter = arregloNumerosFilter.filter((valorActual)=>{
 console.log(`valor actual: ${rFilter}`);
 
 
- */
+
+//cinco ->Filter
+const arregloNumerosEvery = [1,2,3,4];
+
+const respuestaEvery = arregloNumerosEvery.every( (valorActual)=>{
+    return valorActual>0
+});
+console.log(respuestaEvery);
+
+//algun valor es menor que
+const arregloNumerosSome = [1,2,3,4];
+
+// si alguno cumple la condicion  TRUE
+//
+arregloNumerosSome.some((valorActual)=>{
+  return valorActual<2;
+})
+
+//Sumen todos los valores
+
+const arregloNumeroReduce = [1,2,3,4, 5, 6];
+const valorDondeEmpiezaCalculo = 0;
+const respuestaReduce =arregloNumeroReduce.reduce((acumulado, valorActual)=>{
+    return acumulado+valorActual;
+},
+    valorDondeEmpiezaCalculo
+    );
+console.log(respuestaReduce);
+
+//Ejercicio
+// <4 --> 10% +5
+//>=4 --> 15%+3
+
+const arregloNuevo = [1,2,3,4,5,6];
+const acumulado = 0;
+
+const respuesta =arregloNuevo.reduce((acumulado, valorActual)=>{
+
+    if (valorActual<4){
+        return acumulado +valorActual*1.1 +5
+
+    }else
+        return acumulado +valorActual*1.15 +5
+    },
+    valorDondeEmpiezaCalculo
+);
+console.log(respuesta);
+
+//restar todos los valores de 100, filtar mayores a 15
+const arregloNumerosCien = [1, 2, 3, 4, 5, 6];
+const valorDondeEmpiezaCien = 100;
+
+const respuestaCien = arregloNumerosCien.reduce(
+    (acumulado, valorActual) => {
+        return acumulado - valorActual;
+    },
+    valorDondeEmpiezaCien);
+console.log(respuestaCien); // 79
+
+
+//sumar 10 a todos los elementos -->Map
+const arregloEjercicio = [1,2,3,4,5,6];
+arregloEjercicio.map((valorActual)=>{
+    return valorActual +10; //suma 10
+}).filter((valorActual)=>{
+    return valorActual >15;  //>15
+}).some((valorActual)=>{
+    return valorActual>30;  //30 some devuelve frue o false
+});
+
+
