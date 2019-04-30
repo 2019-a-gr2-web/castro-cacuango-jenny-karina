@@ -1,4 +1,18 @@
 <% const nombre = 'Jenny'; //codigo JAVASCRIPT %>
 <%=nombre //mostrar en pantalla%>
 
-<% const arreglo =[1,2,3,4,5]  //definir arreglo%>
+<% const arreglo =[1,2,3,4,5];  //definir arreglo%>
+<%=arreglo%>
+<% const objeto ={nombre:'Jenny'};%>
+<%=objeto%>
+
+<%arreglo.forEach((valorActual)=>{ %>
+<p> Numero: <%=valorActual%></p>
+<% })%>
+
+<ol>
+    <%arreglo.forEach((valorActual)=>{ %>
+    <li> Numero: <%=valorActual%></li>
+    <% })%>
+
+</ol>
