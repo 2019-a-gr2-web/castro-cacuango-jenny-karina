@@ -4,7 +4,7 @@
 <% const arreglo =[1,2,3,4,5];  //definir arreglo%>
 <%=arreglo%>
 <% const objeto ={nombre:'Jenny'};%>
-<%=objeto%>
+<%=objeto.nombre%>
 
 <%arreglo.forEach((valorActual)=>{ %>
 <p> Numero: <%=valorActual%></p>
@@ -16,3 +16,11 @@
     <% })%>
 
 </ol>
+
+
+
+<%if(estaVivo){%>
+    <h1>ESTA VIVO!!!</h1>
+<%}else{%>
+        <h1>Se murio ;(</h1>
+<%}%>
