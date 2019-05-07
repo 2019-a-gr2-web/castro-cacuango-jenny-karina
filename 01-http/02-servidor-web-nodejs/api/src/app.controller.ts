@@ -186,10 +186,15 @@ export class AppController {
       return res.render('inicio', {estaVivo:false});
     }
 
-    /*
-    //datos primitivos
-  //js -ts
-  */
+    @Get('peliculas')//endpoint
+    peliculas(@Response() res) {
+        return res.render('peliculas/inicio.ejs', {});
+    }
+
+        /*
+        //datos primitivos
+      //js -ts
+      */
 
     /*
 var nombre= 'JENNY'; //string
