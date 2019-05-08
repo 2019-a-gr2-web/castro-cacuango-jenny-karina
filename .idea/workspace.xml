@@ -18,7 +18,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/inicio.ejs">
           <provider selected="true" editor-type-id="text-editor">
@@ -31,17 +31,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/app.controller.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7425">
-              <caret line="2" column="33" lean-forward="true" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+            <state relative-caret-position="255">
+              <caret line="190" column="44" selection-start-line="190" selection-start-column="44" selection-end-line="190" selection-end-column="44" />
+              <folding>
+                <element signature="e#0#124#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/estilos.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/inicio.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+            <state relative-caret-position="85">
+              <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -49,7 +61,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/main.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
+            <state relative-caret-position="68">
               <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -84,16 +96,17 @@
         <option value="$USER_HOME$/Desktop/Nueva carpeta/Pilatuña Isaac/Pilatuña-Isaac-Taller.js" />
         <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/prueba.js" />
         <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/inicio.ejs" />
-        <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/app.controller.ts" />
         <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/main.ts" />
         <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/inicio.ejs" />
+        <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/app.controller.ts" />
+        <option value="$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/estilos.ejs" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="width" value="977" />
-    <option name="height" value="1038" />
+    <option name="x" value="-9" />
+    <option name="width" value="978" />
+    <option name="height" value="1039" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -101,7 +114,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -141,8 +153,7 @@
               <item name="01-http" type="462c0819:PsiDirectoryNode" />
               <item name="02-servidor-web-nodejs" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="publico" type="462c0819:PsiDirectoryNode" />
-              <item name="datos" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="castro-cacuango-jenny-karina" type="b2602c69:ProjectViewProjectNode" />
@@ -150,13 +161,14 @@
               <item name="01-http" type="462c0819:PsiDirectoryNode" />
               <item name="02-servidor-web-nodejs" type="462c0819:PsiDirectoryNode" />
               <item name="api" type="462c0819:PsiDirectoryNode" />
-              <item name="publico" type="462c0819:PsiDirectoryNode" />
-              <item name="imagenes" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="peliculas" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -228,18 +240,19 @@
       <workItem from="1557019370912" duration="12408000" />
       <workItem from="1557163206265" duration="1606000" />
       <workItem from="1557164857118" duration="4009000" />
-      <workItem from="1557256717494" duration="6684000" />
+      <workItem from="1557256717494" duration="7213000" />
+      <workItem from="1557342704583" duration="5976000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="101204000" />
+    <option name="totallyTimeSpent" value="107709000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="781" height="830" extended-state="0" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.23521505" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19695969" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -252,7 +265,7 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="TypeScript" order="9" weight="0.3286119" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" sideWeight="0.49966952" visible="true" weight="0.1833811" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49966952" visible="true" weight="0.18130311" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50033045" side_tool="true" weight="0.3286119" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -368,16 +381,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/prueba.js" />
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/Taller.js" />
-    <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/inicio.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/main.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
+        <state relative-caret-position="68">
           <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
@@ -387,15 +393,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/src/app.controller.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7425">
-          <caret line="2" column="33" lean-forward="true" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        <state relative-caret-position="255">
+          <caret line="190" column="44" selection-start-line="190" selection-start-column="44" selection-end-line="190" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#124#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/inicio.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/inicio.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="51" column="44" selection-start-line="51" selection-start-column="44" selection-end-line="51" selection-end-column="44" />
+        <state relative-caret-position="85">
+          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/01-http/02-servidor-web-nodejs/api/views/peliculas/estilos.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="57" column="25" selection-start-line="57" selection-start-column="25" selection-end-line="57" selection-end-column="25" />
         </state>
       </provider>
     </entry>
