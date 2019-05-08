@@ -186,6 +186,11 @@ export class AppController {
       return res.render('inicio', {estaVivo:false});
     }
 
+    @Get('estilos')//endpoint
+    estilos(@Response() res){
+        return res.render('peliculas/estilos.ejs', {});
+    }
+
     @Get('peliculas')//endpoint
     peliculas(@Response() res) {
         return res.render('peliculas/inicio.ejs', {});
