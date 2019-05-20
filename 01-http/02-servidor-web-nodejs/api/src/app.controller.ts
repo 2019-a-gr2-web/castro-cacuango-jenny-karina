@@ -12,8 +12,11 @@ import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
 //http://192.168.1.10:3000/mascota/crear
 //http://192.168.1.10:3000/mascota/borrar
 //@Controller(segmentoInicial)
+
 @Controller('/api')
 export class AppController {
+
+    aregloUsuarios=[];
 
   constructor(private readonly appService: AppService) {}
 
@@ -194,6 +197,12 @@ export class AppController {
     @Get('peliculas')//endpoint
     peliculas(@Response() res) {
         return res.render('peliculas/inicio.ejs', {});
+    }
+
+    /*---------Deber Estilos ------- */
+    @Get('duplicacion')//endpoint
+    duplicacion(@Response() res){
+        return res.render('peliculas/duplicacion.ejs', {});
     }
 
         /*
