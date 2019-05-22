@@ -1,23 +1,61 @@
-<table>
-    <tr>
-        <th>Nombre</th>
-        <th>Grados</th>
-        <th>Caduca</th>
-        <th>Precio</th>
-        <th>Tipo</th>
-        <th>Acciones</th>
-    </tr>
-    <% arregloTragos.forEach((trago)=>{ %>
-    <tr>
-        <td> <%=trago.nombre%> </td>
-        <td> <%=trago.gradosAlcohol%> </td>
-        <td> <%=trago.fechaCaducidad%> </td>
-        <td> <%=trago.precio%> </td>
-        <td> <%=trago.tipo%> </td>
-        <td>
-            <button>Editar</button>
-            <button>Eliminar</button>
-        </td>
-    </tr>
-    <% })%>
-</table>
+<h1>Formulario de Creación</h1>
+<p>Crea un nuevo trago</p>
+<form action="/api/traguito/crear"
+      method="post"
+>
+
+    <label for="nombreId"></label>
+    <input id="nombreId"
+           name="nombre"
+           type="text"
+    >
+    <br>
+
+    <label for="tipoId">Tipo de Trago</label>
+    <select name="tipo" id="tipoId">
+        <option value="Ron">Roncito</option>
+        <option value="Vodka">Vodkita</option>
+        <option value="Tequila"selected>Tequilita</option>
+        <option value="Whiskey">Whiskicito</option>
+        <option value="Puntas Cerveza">Puntitas</option>
+        <option value="Vodka">Vodkita</option>
+    </select>
+    <br>
+
+    <label for="gradosId">Grados de Alcohol</label>
+    <input id="gradosId"
+           name="gradosAlcohol"
+           type="number"
+           min="0"
+           max="100"
+           step="0.1"
+    >
+    <br>
+
+    <label for="fechaCaducidadId">Fecha caducidad</label>
+    <input id="fechaCaducidadId"
+           name="fechaCaducidad"
+           type="date"
+
+    >
+    <br>
+
+    <label for="precioId">Precio</label>
+    <input id="precioId"
+           name="precio"
+           type="number"
+           min="0"
+           step="0.01"
+    >
+    <br>
+
+<!--    <button type="reset">reset</button>-->
+<!--    <button type="submit">submit</button>-->
+
+    <a href="/api/traguito/lista">
+        <button type="button">Cancelar</button>
+    </a>
+
+    <button>Enviar Información</button>
+
+</form>

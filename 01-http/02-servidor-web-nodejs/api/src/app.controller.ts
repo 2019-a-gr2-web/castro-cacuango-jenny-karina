@@ -18,7 +18,7 @@ export class AppController {
 
     aregloUsuarios=[];
 
-  constructor(private readonly appService: AppService) {}
+    constructor(private readonly appService: AppService) {}
 
 //@Controller(segmentoAccion)
     @Get('/hello-world') // Metodo http
@@ -27,11 +27,11 @@ export class AppController {
         return 'hello-world';
     }
 
-@Post('/hola-mundo') // Metodo http
+    @Post('/hola-mundo') // Metodo http
 
-  holaMundo(){
-    return 'Hola-mundo';
-  }
+    holaMundo(){
+        return 'Hola-mundo';
+    }
 
     @Delete('/salut-monde') // Metodo http
 
@@ -47,27 +47,27 @@ export class AppController {
     @Get('/adivina')
 
     adivina(@Headers() headers): string {
-    console.log('Headers:', headers);
+        console.log('Headers:', headers);
         const numeroRandomico = Math.round(Math.random()*10);
         const numeroCabecera = Number(headers.numero);
         if (numeroCabecera == numeroRandomico){
-          return 'ok'
+            return 'ok'
         }else{
-          return ':('
+            return ':('
         }
         // return 'ok';
-        }
+    }
 
     //Parametros de consulta (QUERY)
-        @Get('/consultar')
-        consultar(@Query() queryParams){
-            console.log(queryParams);
-            if (queryParams.nombre){
-                return `hola ${queryParams.nombre}`
-            }
-           // if(queryParams.nombre){
-            // return 'hola' + queryParams
-            //    return `hola ${queryParams.nombre}`
+    @Get('/consultar')
+    consultar(@Query() queryParams){
+        console.log(queryParams);
+        if (queryParams.nombre){
+            return `hola ${queryParams.nombre}`
+        }
+        // if(queryParams.nombre){
+        // return 'hola' + queryParams
+        //    return `hola ${queryParams.nombre}`
         else{
             return 'hola extraño'
         }
@@ -76,44 +76,44 @@ export class AppController {
     //parametros de ruta
     @Get('/ciudad/:idCuidad')
     ciudad(@Param() parametrosRuta){
-      switch (parametrosRuta.idCiudad.toLowerCase()){
-          case 'quito':
-              return 'Hola';
-          case 'guayaquil':
-              return 'Dame majagua'
-          default:
-              return "que mas"
-      }
+        switch (parametrosRuta.idCiudad.toLowerCase()){
+            case 'quito':
+                return 'Hola';
+            case 'guayaquil':
+                return 'Dame majagua'
+            default:
+                return "que mas"
+        }
     }
     //parametros de cuerpo
     @Post('registroComida')
     registroComida(@Body() parametrosCuerpo, @Request() request){
-      console.log(request.body);
-      console.log(parametrosCuerpo);
+        console.log(request.body);
+        console.log(parametrosCuerpo);
         return 'ok'
     }
 
     @Post('registroComida1')
     registroComida1(@Body() parametrosCuerpo, @Response () response){
-      if(parametrosCuerpo.nombre && parametrosCuerpo.cantidad){
+        if(parametrosCuerpo.nombre && parametrosCuerpo.cantidad){
 
-          const cantidad = Number(parametrosCuerpo.cantidad);
-          if(parametrosCuerpo.cantidad > 1){
-              //enviar cabeceras de respuesta
-              response.set('premio', 'guatita') ;
+            const cantidad = Number(parametrosCuerpo.cantidad);
+            if(parametrosCuerpo.cantidad > 1){
+                //enviar cabeceras de respuesta
+                response.set('premio', 'guatita') ;
 
-          }
-          return response.send({mensaje: 'registro creado'})
+            }
+            return response.send({mensaje: 'registro creado'})
 
-      }else{
-          return response.status(400).send({mensaje: 'error, no envia nombre o cantidad', error: 400})
-      }
+        }else{
+            return response.status(400).send({mensaje: 'error, no envia nombre o cantidad', error: 400})
+        }
     }
 
     @Get('/semilla')
     semilla(@Request() request, @Response() response){
-      console.log(request.cookies); //obtener cookies no seguras
-      //crear cookie
+        console.log(request.cookies); //obtener cookies no seguras
+        //crear cookie
         const cookies = request.cookies; //JSON
         const esquemaValidacionNumero= Joi.object().keys({
             numero : Joi.number().integer().required()
@@ -143,12 +143,12 @@ export class AppController {
             //devolver una nueva cookie con nueva fecha
             //response.cookie('fechaServidor', new Date().getTime());
             response.cookie('fechaServidor',  //nombre
-              new Date().getTime(), //valor
-            {
-            //OPCIONES
-            //expires : horaFechaServidor
-            signed:true
-            });
+                new Date().getTime(), //valor
+                {
+                    //OPCIONES
+                    //expires : horaFechaServidor
+                    signed:true
+                });
             return response.send('ok');
         }else{
             return response.send(':(');
@@ -156,16 +156,16 @@ export class AppController {
 
 
 
-          }
+    }
 
-          //-------------------------------------------------------//
-                                    // DEBER 02 //
+    //-------------------------------------------------------//
+    // DEBER 02 //
 
     @Get('/setearNombre')
     cookieUsuario(@Query() queryParams, @Request() request, @Response() response){
 
-      const cookie = request.cookies;
-      const esquemaValidacion= Joi.object().keys({
+        const cookie = request.cookies;
+        const esquemaValidacion= Joi.object().keys({
             usuario : Joi.string().required()
         });
 
@@ -186,7 +186,7 @@ export class AppController {
 
     @Get('inicio')//endpoint
     inicio(@Response() res){
-      return res.render('inicio', {estaVivo:false});
+        return res.render('inicio', {estaVivo:false});
     }
 
     @Get('estilos')//endpoint
@@ -205,10 +205,10 @@ export class AppController {
         return res.render('peliculas/duplicacion.ejs', {});
     }
 
-        /*
-        //datos primitivos
-      //js -ts
-      */
+    /*
+    //datos primitivos
+  //js -ts
+  */
 
     /*
 var nombre= 'JENNY'; //string
@@ -353,7 +353,7 @@ const rForEach1 = arregloNumerosForEach.forEach(function (valorActal) {
 console.log(`respuesta ForEach nuevo ${rForEach1}`);
 
 const rForEach = arregloNumerosForEach.
-    forEach(valorActal=>
+forEach(valorActal=>
     console.log(`arreglo: ${valorActal}`));
 
 //console.log(`respuesta ForEach: ${rForEach}`); -->undefined
@@ -362,24 +362,24 @@ const rForEach = arregloNumerosForEach.
 
 const arregloNumerosMap = [1,2,3,4,5,6];
 const rMap = arregloNumerosMap.
-    map( //Devolver el nuevo valor de ese elemento
+map( //Devolver el nuevo valor de ese elemento
     (valorActual)=>{
-    const esPar = valorActual %2 ==0;
-    if(esPar){
-        const nuevoValor = valorActual +2;
-        return nuevoValor;
-    }else{
-        const nuevoValor = valorActual +1;
-        return nuevoValor;
-    }
-});
+        const esPar = valorActual %2 ==0;
+        if(esPar){
+            const nuevoValor = valorActual +2;
+            return nuevoValor;
+        }else{
+            const nuevoValor = valorActual +1;
+            return nuevoValor;
+        }
+    });
 console.log(`RESPUESTA MAP: ${rMap}`); //Nuevo arreglo
 
 //3)encontrar si hay el n°4
 
 const arregloNumerosFind = [1,2,3,4,5,6];
 const rFind = arregloNumerosFind.
-    find(//condición para devolver ese elemento
+find(//condición para devolver ese elemento
     (valorActual)=>{
         return valorActual ==4;
     }
@@ -390,9 +390,9 @@ console.log(`Respuesta Find: ${rFind}`);
 
 const arregloNumerosFilter = [1,2,3,4,5,6];
 const rFilter = arregloNumerosFilter.
-    filter(//CONDICIÓN TRUE ->Agrega al arreglo
-            //CONDICIÓN FALSE ->Se omite del arreglo
-        (valorActual)=>{
+filter(//CONDICIÓN TRUE ->Agrega al arreglo
+    //CONDICIÓN FALSE ->Se omite del arreglo
+    (valorActual)=>{
         return valorActual < 5;
     }
 );
@@ -405,8 +405,8 @@ const respuestaEvery = arregloNumerosEvery.
 every(//si TODOS cumplen TRUE
     //si ALGUNO no cumple FALSE
     (valorActual)=>{
-    return valorActual > 0
-});
+        return valorActual > 0
+    });
 console.log(`respuesta every: ${respuestaEvery}`); //true
 
 //6)ALGÚN valor es menor q 2

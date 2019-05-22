@@ -17,8 +17,6 @@ export class TragosService {
         };
     }
 
-
-
     crear(nuevoTrago: trago):trago {
         nuevoTrago.id = this.recnum;
         this.recnum++;
