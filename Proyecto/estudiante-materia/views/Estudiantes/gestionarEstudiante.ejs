@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+
+
+<head>
+    <title>Gestion Estudiantes</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+        integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row " style="background-color:black">
+
+            <div class="col-md-4" style="color: white">
+                <h3> Bienvenido </h3>
+            </div>
+
+            <div class="col-md-4" style="text-align:center">
+                <span style="color: white; font-size: 18pt ; align-content: center">
+                    <%= nombre%>
+                </span>
+            </div>
+
+            <div class="col-md-4" style="text-align:right">
+                <form action="/api/borrarCookie" method="POST">
+                    <button type="submit" class="btn btn-danger">Salir</button>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form action="/api/buscarEstudiante" method="POST">
+
+                    <div class="mt-5 d-flex justify-content-center">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <div class="form-group">
+                                    <label for="busquedaEstudiantes">Búsqueda</label>
+                                    <input class="form-control" id="busquedaEstudiantes" name="busquedaEstudiantes"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class=" mt-4 btn btn-primary">Buscar</button>
+                                </div>
+                                <div class="mt-3 d-flex justify-content-center">
+                                    <a href="/api/crearEstudiante">
+                                        <button type="button" class="btn btn-primary">Crear</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </form>
+            </div>
+
+
+
+        </div>
+        <div class="row mt-5">
+            <div class="col-md-12">
+                <table class="table" style="width: 100%">
+                    <thead class="thead-dark">
+
+                        <tr>
+                            <th>Nombres</th>
+                            <th>Apellidos</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Semestre Actual</th>
+                            <th>Graduado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <% arregloEstudiante.forEach((Estudiantes)=>{ %>
+                        <tr>
+                            <td>
+                                <%= Estudiantes.nombre %>
+                            </td>
+                            <td>
+                                <%= Estudiantes.apellido %>
+                            </td>
+                            <td>
+                                <%= Estudiantes.fechaNacimiento %>
+                            </td>
+                            <td>
+                                <%= Estudiantes.semestreActual%>
+                            </td>
+                            <td>
+                                <%= Estudiantes.graduado %>
+                            </td>
+                            <td>
+                                <a href="/examen/Estudiante/gestionarMaterias/<%=Estudiantes.id%>">
+                                    <button class="btn btn-info">Gestionar Materias</button>
+                                </a>
+                                <br>
+                                <br>
+                                
+                                <form action="/api/eliminar" method="post">
+                                    <input id="id" name="id" type="number" value="<%= Estudiantes.id %>" hidden>
+                                    <button class="btn btn-info">Borrar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

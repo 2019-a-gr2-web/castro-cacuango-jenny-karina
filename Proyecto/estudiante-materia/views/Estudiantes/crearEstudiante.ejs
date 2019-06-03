@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Crear Estudiante</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+    integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row " style="background-color:black">
+
+            <div class="col-md-4" style="color: white">
+                <h3> Bienvenido </h3>
+            </div>
+
+            <div class="col-md-4" style="text-align:center">
+                <span style="color: white; font-size: 18pt ; align-content: center">
+                    <%= nombre%>
+                </span>
+            </div>
+
+            <div class="col-md-4" style="text-align:right">
+                <form action="/api/borrarCookie" method="POST">
+                    <button type="submit" class="btn btn-danger">Salir</button>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="mt-5 d-flex justify-content-center">
+            <form action="/api/crearEstudiante" method="post">
+                <h3>Nuevo estudiante</h3>
+                <form action="/api/crearEstudiante" method="post">
+
+
+                    <label for="nombreId">Nombres</label>
+                    <input id="nombreEstudianteId" name="nombre" type="text">
+                    <br>
+                    <label for="apellidoId">Apellidos</label>
+                    <input id="apellidoId" name="apellido" type="text">
+                    <br>
+                    <label for="fechaNacimientoId">Fecha de Nacimiento</label>
+                    <input id="fechaNacimientoId" name="fechaNacimiento" type="date">
+                    <br>
+                    <label for="SemestreActual">Semestre Actual</label>
+                    <input id="semestreActual" name="semestreActual" type="number" min="1" max="10">
+                    <br>
+                    <label for="GraduadoId">¿Está graduado Graduado?</label>
+                    <input id="GraduadoId" name="Graduado" type="radio">
+                    <br>
+
+                    <button class="btn btn-success">Guardar</button>
+                    <a href="/api/gestionarEstudiante">
+                        <button type="button" class="btn btn-danger">Cancelar</button>
+                    </a>
+                    
+                </form>
+            </form>
+
+            <br>
+        </div>
+
+    </div>
+
+
+
+
+
+
+</body>
+
+</html>
