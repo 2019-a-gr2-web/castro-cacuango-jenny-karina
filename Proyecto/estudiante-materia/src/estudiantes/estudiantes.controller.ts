@@ -30,8 +30,10 @@ export class EstudianteController {
         if (cookieSegura.nombreUsuario) {
             return response.render('Estudiantes/gestionarEstudiante',
             {arregloEstudiante:arregloEstudiante,nombre:cookieSegura.nombreUsuario})
+            console.log("Estoy seguro")
         } else {
             return response.redirect('/api/login');
+            console.log("La cookie no vale")
         }
     }
 

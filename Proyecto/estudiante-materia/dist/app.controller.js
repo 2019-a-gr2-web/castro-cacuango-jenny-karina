@@ -17,7 +17,7 @@ let AppController = class AppController {
     }
 };
 AppController = __decorate([
-    common_1.Controller('/examen'),
+    common_1.Controller('/api'),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 exports.AppController = AppController;
