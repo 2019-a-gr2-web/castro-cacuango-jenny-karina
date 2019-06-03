@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ES">
+
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+        integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+    <style>
+        .separador {
+            margin-top: 150px;
+            margin-bottom: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="separador"></div>
+
+    <div class="container" style="width: 500px">
+        <div class="card text-center">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                lOGIN
+            </div>
+            <div class="card-body">
+                <form action="/api/login" method="POST">
+                    <div class="form-group">
+                        <label for="nombre">Ingresa tu Nombre</label>
+                        <input class="form-control" id="nombre" name="nombre" type="text">
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        ENTRAR</button>
+                </form>
+            </div>
+        </div>
+
+        <br>
+    </div>
+    </div>
+</body>
+
+</html>

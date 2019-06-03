@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Home</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.0/css/bootstrap.min.css"
+        integrity="sha384-PDle/QlgIONtM1aqA2Qemk5gPOE7wFq8+Em+G/hmo5Iq0CCmYZLv3fVRDJ4MMwEA" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="row " style="background-color:black">
+
+            <div class="col-md-4" style="color: white">
+                <h3> Bienvenido </h3>
+            </div>
+
+            <div class="col-md-4" style="text-align:center">
+                <span style="color: white; font-size: 18pt ; align-content: center">
+                    <%= nombre%>
+                </span>
+            </div>
+
+            <div class="col-md-4" style="text-align:right">
+                <form action="/api/borrarCookie" method="POST">
+                    <button type="submit" class="btn btn-danger">Salir</button>
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="mt-5 d-flex justify-content-center"></div>
+                    <a href="/api/gestionarEstudiante">
+                        <button type="submit" class="btn btn-success btn-lg btn-block" >Gestionar Estudiante</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
