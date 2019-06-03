@@ -4,7 +4,7 @@ import {isEmpty} from "@nestjs/common/utils/shared.utils";
 
 
 
-@Controller('/examen')
+@Controller('/api')
 export class AppController {
   constructor(private readonly appService: AppService) {
   }
