@@ -19,7 +19,7 @@ async function bootstrap() {
   app.setBaseViewsDir(join(__dirname, '..', 'views')); //el directorio que usa es el que se llama vista
     app.use(express.static ('publico'));
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();
 
