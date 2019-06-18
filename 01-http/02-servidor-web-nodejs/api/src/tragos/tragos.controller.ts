@@ -1,4 +1,4 @@
-import {Controller, Res, Get, Post, Body} from "@nestjs/common";
+import {Controller, Res, Get, Post, Body, HttpCode} from "@nestjs/common";
 import {TragosService} from "./tragos.services";
 import {trago} from "./interfaces/trago";
 
@@ -11,8 +11,8 @@ export class TragosController{
     }
 
     @Get('lista')
-    listarTragos(@Res() res){
-        const arreglosTragos = this._tragosService.bddTragos;
+    async listarTragos(@Res() res){
+        const arreglosTragos = await this._tragosService.buscar();
         res.render('tragos/lista-tragos',
             {
                 arreglosTragos: arreglosTragos
@@ -25,7 +25,7 @@ export class TragosController{
     }
 
     @Post('crear')
-    crearTragoPost(
+    async crearTragoPost(
         @Body() trago:trago,
         @Res()  res,
         // @Body('nombre') nombre:string,
@@ -39,10 +39,19 @@ export class TragosController{
         trago.gradosAlcohol=Number(trago.gradosAlcohol);
         trago.precio=Number(trago.precio);
         trago.fechaCaducidad=new Date(trago.fechaCaducidad);
-        console.log(trago);
 
-        this._tragosService.crear(trago);
-        res.redirect('/api/traguito/lista');
+        try{
+            const respuestaCrear = await  this._tragosService.crear(trago); //promesa
+            console.log('RESPUESTA: ', respuestaCrear);
+            //this._tragosService.crear(trago); //devuelve una promesa
+            res.redirect('/api/traguito/lista');
+
+        }catch (e) {
+            console.error(e);
+            res.status(500);
+            res.send({mensaje: 'ERROR', codigo:500})
+        }
+
 
         // console.log('Trago: ',trago, typeof trago);
         // console.log('nombre: ',nombre, typeof nombre);

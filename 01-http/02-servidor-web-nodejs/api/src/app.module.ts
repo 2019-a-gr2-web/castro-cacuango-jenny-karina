@@ -4,9 +4,13 @@ import { AppService } from './app.service';
 import {TragosModule} from "./tragos/tragos.module";
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {TragosEntity} from "./tragos/tragos.entity";
+import {DistribuidorModule} from "./distribuidor/distribuidor.module";
+import {FiestaModule} from "./fiesta/fiesta.module";
+import {DistribuidorEntity} from "./distribuidor/distribuidor.entity";
+import {FiestaEntity} from "./fiesta/fiesta.entity";
 
 @Module({
-  imports: [TragosModule,
+  imports: [TragosModule, DistribuidorModule, FiestaModule,
       TypeOrmModule.forRoot({
           name: 'default', //nombre de la cadena de conexión por defecto de TYPEORM
           type: 'mysql',
@@ -15,7 +19,10 @@ import {TragosEntity} from "./tragos/tragos.entity";
           username: 'root',
           password: 'karina',
           database: 'test',
-          entities: [TragosEntity],
+          entities: [
+              TragosEntity,
+              DistribuidorEntity,
+              FiestaEntity],
           synchronize: true,
           insecureAuth : true
       }),
