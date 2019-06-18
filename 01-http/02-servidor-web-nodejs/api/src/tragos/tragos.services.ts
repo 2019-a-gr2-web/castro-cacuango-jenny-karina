@@ -3,7 +3,7 @@ import {trago} from "./interfaces/trago";
 import {TragosEntity} from "./tragos.entity";
 import {InjectRepository} from "@nestjs/typeorm";
 import {Repository} from "typeorm";
-import {error} from "util";
+import {error, log} from "util";
 
 @Injectable()
 export class TragosService {
@@ -22,20 +22,43 @@ export class TragosService {
             tipo:'Cerveza'
         };
 
-        const objetoEntidad = this._tragosRepository.create(traguito); //ayuda a crear un objeto de esa entidad
-        this._tragosRepository.save(objetoEntidad).then((datos)=>{
-            console.log('Dato creado: ', datos)
-        }
-        ).catch((error)=>{
-            console.log('Error: ', error);
-        })
+        const objetoEntidad = this._tragosRepository.create(traguito);
+
+        console.log('LINEA 1');
+        this._tragosRepository
+            .save(objetoEntidad) // Promesa
+            .then(
+                (datos)=>{
+                    console.log('LINEA 2');
+                    // console.log('Dato creado:', datos);
+                }
+            )
+            .catch(
+                (error)=>{
+                    console.log('LINEA 3');
+                    // console.error('Error:', error);
+                }
+            );
+        console.log('LINEA 4');
+
+        this.crear(traguito)
     }
 
-    crear(nuevoTrago: trago):trago {
-        nuevoTrago.id = this.recnum;
-        this.recnum++;
-        this.bddTragos.push(nuevoTrago);
-        return nuevoTrago;
+    buscar(parametrosBusqueda?):Promise<trago[]>{
+        return this._tragosRepository.find(parametrosBusqueda)
+    }
+
+
+    crear(nuevoTrago: trago):Promise<trago> {
+        // nuevoTrago.id = this.recnum;
+        // this.recnum++;
+        // this.bddTragos.push(nuevoTrago);
+        // return nuevoTrago;
+
+        const objetoEntidad = this._tragosRepository
+            .create(nuevoTrago);
+
+        return this._tragosRepository.save(objetoEntidad);
     }
 
     buscarPorId(id: number):trago {
