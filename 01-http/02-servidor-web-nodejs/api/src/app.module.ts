@@ -24,7 +24,8 @@ import {FiestaEntity} from "./fiesta/fiesta.entity";
               DistribuidorEntity,
               FiestaEntity],
           synchronize: true,
-          insecureAuth : true
+          insecureAuth : true,
+          dropSchema: false,
       }),
   ],
   controllers: [AppController],

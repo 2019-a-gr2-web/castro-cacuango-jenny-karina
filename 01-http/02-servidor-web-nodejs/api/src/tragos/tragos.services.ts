@@ -22,6 +22,7 @@ export class TragosService {
             tipo:'Cerveza'
         };
 
+
         const objetoEntidad = this._tragosRepository.create(traguito);
 
         console.log('LINEA 1');

@@ -1,17 +1,19 @@
-import {Controller, Res, Get, Post, Body, HttpCode} from "@nestjs/common";
+import {Controller, Res, Get, Post, Body, HttpCode, Query} from "@nestjs/common";
 import {TragosService} from "./tragos.services";
 import {trago} from "./interfaces/trago";
+import {TragosCreateDto} from "./DTO/tragos.create.dto";
+import {validate} from "class-validator";
 
 @Controller('/api/traguito')
 
-export class TragosController{
+export class TragosController {
 
     constructor(private readonly _tragosService: TragosService) {
 
     }
 
     @Get('lista')
-    async listarTragos(@Res() res){
+    async listarTragos(@Res() res) {
         const arreglosTragos = await this._tragosService.buscar();
         res.render('tragos/lista-tragos',
             {
@@ -20,13 +22,20 @@ export class TragosController{
     }
 
     @Get('crear')
-    crear(@Res() res){
-        res.render('tragos/crear-editar')
-    }
+    crearTrago(
+        @Res() res,
+        @Query('mensaje') mensaje:string,
+    ) {
 
+        res.render(
+            'tragos/crear-editar',{
+                mensaje: mensaje
+            }
+        )
+    }
     @Post('crear')
     async crearTragoPost(
-        @Body() trago:trago,
+        @Body() trago: trago,
         @Res()  res,
         // @Body('nombre') nombre:string,
         // @Body('tipo') tipo:string,
@@ -35,21 +44,47 @@ export class TragosController{
         // @Body('precio') precio:number,
 
 
-    ){
-        trago.gradosAlcohol=Number(trago.gradosAlcohol);
-        trago.precio=Number(trago.precio);
-        trago.fechaCaducidad=new Date(trago.fechaCaducidad);
+    ) {
+        trago.gradosAlcohol = Number(trago.gradosAlcohol);
+        trago.precio = Number(trago.precio);
 
-        try{
-            const respuestaCrear = await  this._tragosService.crear(trago); //promesa
-            console.log('RESPUESTA: ', respuestaCrear);
-            //this._tragosService.crear(trago); //devuelve una promesa
-            res.redirect('/api/traguito/lista');
 
-        }catch (e) {
+        trago.fechaCaducidad = trago.fechaCaducidad ? new Date(trago.fechaCaducidad) : undefined;
+
+        let tragoAValidar = new TragosCreateDto();
+
+        tragoAValidar.nombre = trago.nombre;
+        tragoAValidar.tipo = trago.tipo;
+        tragoAValidar.fechaCaducidad = trago.fechaCaducidad;
+        tragoAValidar.precio = trago.precio;
+        tragoAValidar.gradosAlcohol = trago.gradosAlcohol;
+
+        try {
+
+            const errores = await validate(tragoAValidar);
+            console.log(errores);
+            console.log(tragoAValidar);
+            console.log(trago);
+            if (errores.length > 0) {
+
+                console.error(errores);
+                res.redirect('/api/traguito/crear?mensaje=Tienes un error en el formulario');
+
+
+            } else {
+
+                const respuestaCrear = await this._tragosService
+                    .crear(trago); // Promesa
+
+                console.log('RESPUESTA: ', respuestaCrear);
+
+                res.redirect('/api/traguito/lista');
+            }
+        }
+        catch (e) {
             console.error(e);
             res.status(500);
-            res.send({mensaje: 'ERROR', codigo:500})
+            res.send({mensaje: 'Error', codigo: 500});
         }
 
 
@@ -62,4 +97,4 @@ export class TragosController{
 
     }
 
- }
+}
