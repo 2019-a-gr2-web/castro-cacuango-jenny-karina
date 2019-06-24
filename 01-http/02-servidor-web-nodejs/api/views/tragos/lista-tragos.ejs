@@ -1,3 +1,6 @@
+<%const nombreUsuario = 'Jenny';%>
+<%- include('../componentes/menu/menu',{nombre: nombreUsuario})%>
+
 <style>
     table ,th, td, tr{
         border: solid blue 1px ;
@@ -34,3 +37,5 @@
     </tr>
     <% })%>
 </table>
+
+<%- include('../componentes/footer/footer')%>

@@ -1,10 +1,17 @@
+<%-include('../componentes/menu/menu')%>
+
+<% const existeMensaje =mensaje %>
+<% if(existeMensaje){%>
+    <p>ERROR EN FORMULARIO!! <%=mensaje%></p>
+<%}%>
+
 <h1>Formulario de Creación</h1>
 <p>Crea un nuevo trago</p>
 <form action="/api/traguito/crear"
       method="post"
 >
 
-    <label for="nombreId"></label>
+    <label for="nombreId">Nombre</label>
     <input id="nombreId"
            name="nombre"
            type="text"
@@ -59,3 +66,5 @@
     <button>Enviar Información</button>
 
 </form>
+
+<%-include('../componentes/footer/footer')%>
