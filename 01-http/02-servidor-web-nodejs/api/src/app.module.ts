@@ -25,7 +25,7 @@ import {FiestaEntity} from "./fiesta/fiesta.entity";
               FiestaEntity],
           synchronize: true,
           insecureAuth : true,
-          dropSchema: false,
+          dropSchema: true,
       }),
   ],
   controllers: [AppController],

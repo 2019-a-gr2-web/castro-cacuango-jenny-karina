@@ -8,7 +8,10 @@ import {validate} from "class-validator";
 
 export class TragosController {
 
-    constructor(private readonly _tragosService: TragosService) {
+    editado:boolean =false;
+    tragoEditarId: number = null;
+
+    constructor(private readonly _tragosService: TragosService) { //Con esto se tiene todos los métodos de tragosService
 
     }
 
@@ -22,16 +25,45 @@ export class TragosController {
     }
 
     @Get('crear')
-    crearTrago(
+    async crearTrago(
         @Res() res,
         @Query('mensaje') mensaje:string,
+        @Query('id') id?: number
     ) {
 
-        res.render(
-            'tragos/crear-editar',{
-                mensaje: mensaje
-            }
-        )
+        let editar;
+        var tragoAux: trago = {
+            nombre: "",
+            tipo: "Cerveza",
+            gradosAlcohol: null,
+            fechaCaducidad: null,
+            precio: null
+        };
+        if (id) {
+            this.editado = true;
+            this.tragoEditarId = Number(id);
+            editar = this.editado;
+
+
+            let aux = await this._tragosService.buscarporId(id);
+
+
+            tragoAux = aux[0];
+
+            res.render('tragos/crear-editar',
+                { mensaje, tragoAux, editar });
+        } else {
+            this.editado = false;
+            editar = this.editado;
+            res.render('tragos/crear-editar',
+                { mensaje, tragoAux, editar });
+        }
+
+        // res.render(
+        //     'tragos/crear-editar',{
+        //         mensaje: mensaje
+        //     }
+        // )
     }
     @Post('crear')
     async crearTragoPost(
@@ -47,8 +79,6 @@ export class TragosController {
     ) {
         trago.gradosAlcohol = Number(trago.gradosAlcohol);
         trago.precio = Number(trago.precio);
-
-
         trago.fechaCaducidad = trago.fechaCaducidad ? new Date(trago.fechaCaducidad) : undefined;
 
         let tragoAValidar = new TragosCreateDto();
@@ -70,15 +100,23 @@ export class TragosController {
                 console.error(errores);
                 res.redirect('/api/traguito/crear?mensaje=Tienes un error en el formulario');
 
-
             } else {
 
-                const respuestaCrear = await this._tragosService
-                    .crear(trago); // Promesa
+                if (!this.editado) {
+                    const respuestaCrear = await this._tragosService.crear(trago); //promesa
+                } else {
+                    const respuestaEditar = await this._tragosService.editarTrago(this.tragoEditarId, trago);
+                    this.tragoEditarId = null;
+                }
 
-                console.log('RESPUESTA: ', respuestaCrear);
+                res.redirect('/api/traguito/lista')
 
-                res.redirect('/api/traguito/lista');
+                // const respuestaCrear = await this._tragosService
+                //     .crear(trago); // Promesa
+                //
+                // console.log('RESPUESTA: ', respuestaCrear);
+                //
+                // res.redirect('/api/traguito/lista');
             }
         }
         catch (e) {
@@ -96,5 +134,20 @@ export class TragosController {
         // console.log('precio: ',precio, typeof precio);
 
     }
+
+    @Post('eliminarTrago')
+    async borrarTraguito(
+        @Body('id') id: number,
+        @Res() res
+    ) {
+
+        //this._tragossService.eliminar(id);
+        console.log(id);
+        await this._tragosService.eliminarTrago(Number(id));
+        res.redirect('/api/traguito/lista')
+
+    }
+
+
 
 }
