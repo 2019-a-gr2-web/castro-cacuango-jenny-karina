@@ -2,14 +2,14 @@ import {Injectable} from "@nestjs/common";
 import {trago} from "./interfaces/trago";
 import {TragosEntity} from "./tragos.entity";
 import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
+import {DeleteResult, Repository} from "typeorm";
 import {error, log} from "util";
 
 @Injectable()
 export class TragosService {
 
     bddTragos: trago[] = [];
-    recnum = 1;
+    recnum = 1; //gestiona id de los tragos
 
     constructor(@InjectRepository(TragosEntity)
                 private readonly _tragosRepository: Repository<TragosEntity>,){
@@ -62,12 +62,31 @@ export class TragosService {
         return this._tragosRepository.save(objetoEntidad);
     }
 
-    buscarPorId(id: number):trago {
-        return this.bddTragos.find(
-            (trago) => {
-                return trago.id === id;
-            }
-        );
+    buscarporId(id: number): Promise<trago[]> {
+
+        return this._tragosRepository.find({ id: id })
+    }
+
+    // buscarPorId(id: number):trago {
+    //     return this.bddTragos.find(
+    //         (trago) => {
+    //             return trago.id === id;
+    //         }
+    //     );
+    // }
+
+    editarTrago(idtragoOriginal: number, tragoEditado: trago) {
+        return this._tragosRepository.update(idtragoOriginal,
+            {
+                nombre: tragoEditado.nombre,
+                tipo: tragoEditado.tipo,
+                gradosAlcohol: tragoEditado.gradosAlcohol,
+                precio: tragoEditado.precio,
+                fechaCaducidad: tragoEditado.fechaCaducidad });
+    }
+
+    eliminarTrago(id: number): Promise<DeleteResult> {
+        return this._tragosRepository.delete(id);
     }
 
     buscarPorNombre(nombre: string):trago {

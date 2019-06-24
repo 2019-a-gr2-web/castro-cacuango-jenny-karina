@@ -5,7 +5,17 @@
     <p>ERROR EN FORMULARIO!! <%=mensaje%></p>
 <%}%>
 
-<h1>Formulario de Creación</h1>
+<style>
+    .centro{
+        text-align: center;
+    }
+
+    .tamanio{
+        width: 100%;
+    }
+</style>
+
+<h1 class="centro">Formulario de Creación</h1>
 <p>Crea un nuevo trago</p>
 <form action="/api/traguito/crear"
       method="post"
@@ -15,6 +25,7 @@
     <input id="nombreId"
            name="nombre"
            type="text"
+           value="<%=tragoAux.nombre%>"
     >
     <br>
 
@@ -36,6 +47,7 @@
            min="0"
            max="100"
            step="0.1"
+           value="<%=tragoAux.gradosAlcohol%>"
     >
     <br>
 
@@ -43,6 +55,7 @@
     <input id="fechaCaducidadId"
            name="fechaCaducidad"
            type="date"
+           value="<%=tragoAux.fechaCaducidad%>"
 
     >
     <br>
@@ -53,6 +66,7 @@
            type="number"
            min="0"
            step="0.01"
+           value="<%=tragoAux.precio%>"
     >
     <br>
 
@@ -63,7 +77,11 @@
         <button type="button">Cancelar</button>
     </a>
 
-    <button>Enviar Información</button>
+    <% if(!editar){ %>
+        <button>Enviar información</button>
+    <% }else{ %>
+        <button>Realizar cambios</button>
+    <% } %>
 
 </form>
 
