@@ -60,7 +60,7 @@ export class AppController {
         @Session() session,
         @Res() res
     ){
-        if(usuario.username === 'adrian' && usuario.password === '12345678'){
+        if(usuario.username === 'jenny' && usuario.password === '1234'){
             //    QUE HACEMOS
             session.username = usuario.username;
             res.redirect('/api/protegida');
