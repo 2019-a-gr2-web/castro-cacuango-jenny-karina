@@ -1,4 +1,18 @@
-import {Controller, Delete, Get, Headers, HttpCode, Param, Post, Put, Query, Body, Request, Response} from '@nestjs/common';
+import {
+    Controller,
+    Delete,
+    Get,
+    Headers,
+    HttpCode,
+    Param,
+    Post,
+    Put,
+    Query,
+    Body,
+    Request,
+    Response,
+    Session, Res
+} from '@nestjs/common';
 import { AppService } from './app.service';
 import * as Joi from '@hapi/joi';
 
@@ -16,9 +30,66 @@ import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
 @Controller('/api')
 export class AppController {
 
+
+
     aregloUsuarios=[];
 
     constructor(private readonly appService: AppService) {}
+
+    @Get('session')
+    session(
+        @Query('nombre') nombre,
+        @Session() session
+    ){
+        console.log(session);
+        session.autenticado =true;
+        session.nombreUsuario = nombre;
+        console.log(nombre);
+        return 'ok';
+    }
+
+    //LOGEO
+    @Get('login')
+    loginVista(@Res() res){
+        res.render('login')
+    }
+
+    @Post('login')
+    login(
+        @Body() usuario,
+        @Session() session,
+        @Res() res
+    ){
+        if(usuario.username === 'adrian' && usuario.password === '12345678'){
+            //    QUE HACEMOS
+            session.username = usuario.username;
+            res.redirect('/api/protegida');
+        }else{
+            res.code(400);
+            res.send({mensaje:'Error login',error:400})
+        }
+    }
+
+    @Get('protegida')
+    protegida(
+        @Session() session,
+        @Res() res
+    ){
+        if(session.username){
+            res.render('protegida',{
+                nombre:session.username});
+        }else{
+            res.redirect('/api/login');
+        }
+    }
+
+    @Get('logout')
+    logout(@Res() res, @Session() session){
+        session.username = undefined;
+        session.destroy();
+        res.redirect('/api/login');
+
+    }
 
 //@Controller(segmentoAccion)
     @Get('/hello-world') // Metodo http
@@ -296,184 +367,184 @@ objeto.propiedadTres = undefined;
 
 */
 
-//Funcion que no devuelve nada -->void
-function holaMundo() {
-    console.log('hola mundo');
-}
-
-const respuesraHolaMundo = holaMundo(); //undefined
-console.log('resp hola mundo: ', respuesraHolaMundo);
-
-//Función que devuelve parámetros
-function  suma(a:number,b:number):number {
-    return a+ b;
-}
-
-const respuestaSuma = suma(1,2); //valor=3
-console.log('resp suma: ', respuestaSuma);
-
-
-
-//CONDICIONALES EN JS
-//truty ->true
-//falsy ->false
-
-if({}){ //truty
-    console.log('verdadero')
-
-}else {
-    console.log('falso')
-
-}
-
-if(null){ //truty
-    console.log('verdadero jaja')
-
-}else {
-    console.log('falso :(xDxD')
-
-}
-
-//OPERADORES DE ARREGLOS EN JS
-const arreglo: any = [1, 'A', true, null, {}];
-
-
-
-//1)imprimir todos los elementos
-const arregloNumerosForEach = [1,2,3,4,5,6];
-arregloNumerosForEach.forEach(function (valorActual, indice, arreglo) {
-    console.log(`valorActual: ${valorActual}`);
-    console.log(`indice: ${indice}`);
-    console.log(`arreglo: ${arreglo}`);
-});
-
-const rForEach1 = arregloNumerosForEach.forEach(function (valorActal) {
-    console.log(`arreglonuevo: ${valorActal}`);
-});
-console.log(`respuesta ForEach nuevo ${rForEach1}`);
-
-const rForEach = arregloNumerosForEach.
-forEach(valorActal=>
-    console.log(`arreglo: ${valorActal}`));
-
-//console.log(`respuesta ForEach: ${rForEach}`); -->undefined
-
-//2)sumen 2 a los pares y 1 a los impares
-
-const arregloNumerosMap = [1,2,3,4,5,6];
-const rMap = arregloNumerosMap.
-map( //Devolver el nuevo valor de ese elemento
-    (valorActual)=>{
-        const esPar = valorActual %2 ==0;
-        if(esPar){
-            const nuevoValor = valorActual +2;
-            return nuevoValor;
-        }else{
-            const nuevoValor = valorActual +1;
-            return nuevoValor;
-        }
-    });
-console.log(`RESPUESTA MAP: ${rMap}`); //Nuevo arreglo
-
-//3)encontrar si hay el n°4
-
-const arregloNumerosFind = [1,2,3,4,5,6];
-const rFind = arregloNumerosFind.
-find(//condición para devolver ese elemento
-    (valorActual)=>{
-        return valorActual ==4;
-    }
-);
-console.log(`Respuesta Find: ${rFind}`);
-
-//4)filtrar menores a 5
-
-const arregloNumerosFilter = [1,2,3,4,5,6];
-const rFilter = arregloNumerosFilter.
-filter(//CONDICIÓN TRUE ->Agrega al arreglo
-    //CONDICIÓN FALSE ->Se omite del arreglo
-    (valorActual)=>{
-        return valorActual < 5;
-    }
-);
-console.log(`Respuesta Filter: ${rFilter}`);
-
-//5)TODOS los valores son positivos?
-
-const arregloNumerosEvery = [1,2,3,4,5,6];
-const respuestaEvery = arregloNumerosEvery.
-every(//si TODOS cumplen TRUE
-    //si ALGUNO no cumple FALSE
-    (valorActual)=>{
-        return valorActual > 0
-    });
-console.log(`respuesta every: ${respuestaEvery}`); //true
-
-//6)ALGÚN valor es menor q 2
-
-const arregloNumerosSome = [1,2,3,4,5,6];
-
-// si alguno cumple la condicion --> TRUE
-// si todos no cumplen -->False
-const respuestaSome=arregloNumerosSome.some((valorActual)=>{
-    return valorActual<2;
-});
-console.log(`respuesta Some ${respuestaSome}`);
-
-//7)sumar todos los valores
-
-const arregloNumeroReduce = [1,2,3,4, 5, 6];
-const valorDondeEmpiezaCalculo = 0;
-const respuestaReduce =arregloNumeroReduce.
-reduce((acumulado, valorActual)=>{
-        return acumulado+valorActual;
-    },
-    valorDondeEmpiezaCalculo
-);
-console.log(`Respuesta Reduce: ${respuestaReduce}`);  //21
-
-//Ejercicio
-// <4 --> 10% +5
-//>=4 --> 15%+3
-
-const arregloNuevo = [1,2,3,4,5,6];
-const acumulado = 0;
-
-const respuesta =arregloNuevo.reduce((acumulado, valorActual)=>{
-
-        if (valorActual<4){
-            return acumulado +valorActual*1.1 +5
-
-        }else
-            return acumulado +valorActual*1.15 +5
-    },
-    valorDondeEmpiezaCalculo
-);
-console.log(`Respuesta: ${respuesta}`);
-
-
-//8)restar todos los valores de 100
-const arregloNumerosCien = [1, 2, 3, 4, 5, 6];
-const valorDondeEmpiezaCien = 100;
-
-const respuestaCien = arregloNumerosCien.reduce(
-    (acumulado, valorActual) => {
-        return acumulado - valorActual;
-    },
-    valorDondeEmpiezaCien);
-console.log(`Respuesta resta de 100: ${respuestaCien}`); // 79
-
-
-//1.1)sumen 10 a todos
-//2.1)filtrar mayores a 15
-//3.1) si hay algun numero myor a 30
-
-const arregloEjercicio = [1,2,3,4,5,6];
-arregloEjercicio.map((valorActual)=>{
-    return valorActual +10; //suma 10
-}).filter((valorActual)=>{
-    return valorActual >15;  //>15
-}).some((valorActual)=>{
-    return valorActual>30;  //30 some devuelve frue o false
-});
+// //Funcion que no devuelve nada -->void
+// function holaMundo() {
+//     console.log('hola mundo');
+// }
+//
+// const respuesraHolaMundo = holaMundo(); //undefined
+// console.log('resp hola mundo: ', respuesraHolaMundo);
+//
+// //Función que devuelve parámetros
+// function  suma(a:number,b:number):number {
+//     return a+ b;
+// }
+//
+// const respuestaSuma = suma(1,2); //valor=3
+// console.log('resp suma: ', respuestaSuma);
+//
+//
+//
+// //CONDICIONALES EN JS
+// //truty ->true
+// //falsy ->false
+//
+// if({}){ //truty
+//     console.log('verdadero')
+//
+// }else {
+//     console.log('falso')
+//
+// }
+//
+// if(null){ //truty
+//     console.log('verdadero jaja')
+//
+// }else {
+//     console.log('falso :(xDxD')
+//
+// }
+//
+// //OPERADORES DE ARREGLOS EN JS
+// const arreglo: any = [1, 'A', true, null, {}];
+//
+//
+//
+// //1)imprimir todos los elementos
+// const arregloNumerosForEach = [1,2,3,4,5,6];
+// arregloNumerosForEach.forEach(function (valorActual, indice, arreglo) {
+//     console.log(`valorActual: ${valorActual}`);
+//     console.log(`indice: ${indice}`);
+//     console.log(`arreglo: ${arreglo}`);
+// });
+//
+// const rForEach1 = arregloNumerosForEach.forEach(function (valorActal) {
+//     console.log(`arreglonuevo: ${valorActal}`);
+// });
+// console.log(`respuesta ForEach nuevo ${rForEach1}`);
+//
+// const rForEach = arregloNumerosForEach.
+// forEach(valorActal=>
+//     console.log(`arreglo: ${valorActal}`));
+//
+// //console.log(`respuesta ForEach: ${rForEach}`); -->undefined
+//
+// //2)sumen 2 a los pares y 1 a los impares
+//
+// const arregloNumerosMap = [1,2,3,4,5,6];
+// const rMap = arregloNumerosMap.
+// map( //Devolver el nuevo valor de ese elemento
+//     (valorActual)=>{
+//         const esPar = valorActual %2 ==0;
+//         if(esPar){
+//             const nuevoValor = valorActual +2;
+//             return nuevoValor;
+//         }else{
+//             const nuevoValor = valorActual +1;
+//             return nuevoValor;
+//         }
+//     });
+// console.log(`RESPUESTA MAP: ${rMap}`); //Nuevo arreglo
+//
+// //3)encontrar si hay el n°4
+//
+// const arregloNumerosFind = [1,2,3,4,5,6];
+// const rFind = arregloNumerosFind.
+// find(//condición para devolver ese elemento
+//     (valorActual)=>{
+//         return valorActual ==4;
+//     }
+// );
+// console.log(`Respuesta Find: ${rFind}`);
+//
+// //4)filtrar menores a 5
+//
+// const arregloNumerosFilter = [1,2,3,4,5,6];
+// const rFilter = arregloNumerosFilter.
+// filter(//CONDICIÓN TRUE ->Agrega al arreglo
+//     //CONDICIÓN FALSE ->Se omite del arreglo
+//     (valorActual)=>{
+//         return valorActual < 5;
+//     }
+// );
+// console.log(`Respuesta Filter: ${rFilter}`);
+//
+// //5)TODOS los valores son positivos?
+//
+// const arregloNumerosEvery = [1,2,3,4,5,6];
+// const respuestaEvery = arregloNumerosEvery.
+// every(//si TODOS cumplen TRUE
+//     //si ALGUNO no cumple FALSE
+//     (valorActual)=>{
+//         return valorActual > 0
+//     });
+// console.log(`respuesta every: ${respuestaEvery}`); //true
+//
+// //6)ALGÚN valor es menor q 2
+//
+// const arregloNumerosSome = [1,2,3,4,5,6];
+//
+// // si alguno cumple la condicion --> TRUE
+// // si todos no cumplen -->False
+// const respuestaSome=arregloNumerosSome.some((valorActual)=>{
+//     return valorActual<2;
+// });
+// console.log(`respuesta Some ${respuestaSome}`);
+//
+// //7)sumar todos los valores
+//
+// const arregloNumeroReduce = [1,2,3,4, 5, 6];
+// const valorDondeEmpiezaCalculo = 0;
+// const respuestaReduce =arregloNumeroReduce.
+// reduce((acumulado, valorActual)=>{
+//         return acumulado+valorActual;
+//     },
+//     valorDondeEmpiezaCalculo
+// );
+// console.log(`Respuesta Reduce: ${respuestaReduce}`);  //21
+//
+// //Ejercicio
+// // <4 --> 10% +5
+// //>=4 --> 15%+3
+//
+// const arregloNuevo = [1,2,3,4,5,6];
+// const acumulado = 0;
+//
+// const respuesta =arregloNuevo.reduce((acumulado, valorActual)=>{
+//
+//         if (valorActual<4){
+//             return acumulado +valorActual*1.1 +5
+//
+//         }else
+//             return acumulado +valorActual*1.15 +5
+//     },
+//     valorDondeEmpiezaCalculo
+// );
+// console.log(`Respuesta: ${respuesta}`);
+//
+//
+// //8)restar todos los valores de 100
+// const arregloNumerosCien = [1, 2, 3, 4, 5, 6];
+// const valorDondeEmpiezaCien = 100;
+//
+// const respuestaCien = arregloNumerosCien.reduce(
+//     (acumulado, valorActual) => {
+//         return acumulado - valorActual;
+//     },
+//     valorDondeEmpiezaCien);
+// console.log(`Respuesta resta de 100: ${respuestaCien}`); // 79
+//
+//
+// //1.1)sumen 10 a todos
+// //2.1)filtrar mayores a 15
+// //3.1) si hay algun numero myor a 30
+//
+// const arregloEjercicio = [1,2,3,4,5,6];
+// arregloEjercicio.map((valorActual)=>{
+//     return valorActual +10; //suma 10
+// }).filter((valorActual)=>{
+//     return valorActual >15;  //>15
+// }).some((valorActual)=>{
+//     return valorActual>30;  //30 some devuelve frue o false
+// });
 
