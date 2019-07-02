@@ -8,9 +8,13 @@ import {DistribuidorModule} from "./distribuidor/distribuidor.module";
 import {FiestaModule} from "./fiesta/fiesta.module";
 import {DistribuidorEntity} from "./distribuidor/distribuidor.entity";
 import {FiestaEntity} from "./fiesta/fiesta.entity";
+import {ChatModule} from "./chat/chat.module";
 
 @Module({
-  imports: [TragosModule, DistribuidorModule, FiestaModule,
+  imports: [
+      /*TragosModule,
+      DistribuidorModule,
+      FiestaModule,
       TypeOrmModule.forRoot({
           name: 'default', //nombre de la cadena de conexión por defecto de TYPEORM
           type: 'mysql',
@@ -22,12 +26,16 @@ import {FiestaEntity} from "./fiesta/fiesta.entity";
           entities: [
               TragosEntity,
               DistribuidorEntity,
-              FiestaEntity],
+              FiestaEntity
+          ],
           synchronize: true,
           insecureAuth : true,
           dropSchema: true,
       }),
-  ],
+
+       */
+    ChatModule
+  ], //Modulos
   controllers: [AppController],
   providers: [AppService],
 })
