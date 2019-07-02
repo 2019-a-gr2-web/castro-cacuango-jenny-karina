@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Websockets</title>
+</head>
+<body>
+
+    <!--<script src="socket.io.js"></script>-->
+    <script src="/websockets/socket.io.js"></script>
+    <script>
+        // conectarnos al socket
+
+        const url ='http://localhost:3002/websockets';
+        const socket = io(url);
+        console.log('ya mismo nos conectamos :D');
+
+        //nombre del evento que queremos escuchar
+        socket.on(
+            'connect', //nombre del evento
+            ()=>{
+                console.log('Estamos conectados');
+                /*socket.disconnect();
+                setTimeout(
+                    ()=>{
+                        socket.connect();
+                    }, 3000
+                )*/
+            });
+
+        /*socket.on(
+            'disconnet', //nombre del evento
+            ()=>{
+                console.log('Estamos conectados')
+
+            }
+        );*/
+
+        function peticionHolaMundo() {
+            const nombreMetodo = 'holaMundo';
+            const datos ={
+                nombre: 'Jenny'
+            };
+            socket.emit(
+                nombreMetodo,
+                datos,
+                (respuesta)=>{ //callback
+                    console.log(respuesta)
+                }
+            );
+
+            socket.on(
+                'saludaran',
+                (data)=>{
+                    console.log('Nos saludaron', data);
+                }
+            )
+        }
+
+    </script>
+
+</body>
+</html>
