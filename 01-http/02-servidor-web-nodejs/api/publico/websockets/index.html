@@ -5,9 +5,67 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
     <title>Websockets</title>
 </head>
 <body>
+
+<h1 id="titulo">Chat EPN</h1>
+
+<p class="par">Primero</p>
+<p class="par">Segundo</p>
+<!--<p class="par" onmouseenter="clicParrafo()">Segundo</p>-->
+
+<div id="contenedor-chat">
+
+
+</div>
+
+<label for="chat-texto">Texto</label>
+<input id="chat-texto" type="text">
+
+<button onclick="cogerDato()">Añadir Chat</button>
+
+<script>
+    const titulo = document.getElementById('titulo');
+    titulo.style.backgroundColor = 'green';
+    titulo.onclick = () => {
+        console.log(('Diste clic al título'));
+    };
+
+    function clicParrafo() {
+        alert('Cuidadooo!!')
+    }
+
+    function cogerDato() {
+        const mensaje = document.getElementById('chat-texto');
+        const texto = mensaje.value;
+        console.log(texto);
+
+        const idContenedor = 'contenedor-chat';
+        const nombreEtiquetaHTMLChat = "p";
+        const parrafo = document.createElement(nombreEtiquetaHTMLChat);
+
+        const contenidoHTML=`
+    <div class="alert alert-primary" role="alert">
+            ${texto}
+        </div>`;
+
+
+        parrafo.innerHTML = contenidoHTML;
+        anadirEtiqueta(idContenedor, parrafo);
+        peticionHolaMundo(texto);
+    }
+
+    function anadirEtiqueta(idEtiqueta, elementoHTML) {
+        const  etiqueta = document.getElementById(idEtiqueta);
+        etiqueta.appendChild(elementoHTML);
+
+    }
+
+</script>
 
     <!--<script src="socket.io.js"></script>-->
     <script src="/websockets/socket.io.js"></script>
@@ -39,10 +97,10 @@
             }
         );*/
 
-        function peticionHolaMundo() {
+        function peticionHolaMundo(texto) {
             const nombreMetodo = 'holaMundo';
             const datos ={
-                nombre: 'Jenny'
+                nombre: texto
             };
             socket.emit(
                 nombreMetodo,
