@@ -11,7 +11,7 @@ import {
     Body,
     Request,
     Response,
-    Session, Res
+    Session, Res, Render, UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import { AppService } from './app.service';
 import * as Joi from '@hapi/joi';
@@ -21,6 +21,7 @@ import * as Joi from '@hapi/joi';
 import {puts} from "util";
 import {get} from "https";
 import {isUndefined} from "../node_modules/@nestjs/common/utils/shared.utils";
+import {FileInterceptor} from "@nestjs/platform-express";
 //protocolo-ip-puerto
 //http://192.168.1.10:3000/segmentoInicial
 //http://192.168.1.10:3000/mascota/crear
@@ -35,6 +36,44 @@ export class AppController {
     aregloUsuarios=[];
 
     constructor(private readonly appService: AppService) {}
+
+    @Get('subirArchivo/:idTrago')
+    @Render('archivo')
+    subirArchivo(
+        @Param('idTrago') idTrago
+    ){
+        return{
+            idTrago: idTrago
+        };
+    }
+
+    @Post('subirArchivo/:idTrago')
+    @UseInterceptors(
+        FileInterceptor(
+            'imagen',
+            {
+                dest: __dirname + '/../archivos'
+            }
+        )
+    )
+
+    subirArchivoPost(@Param('idTrago') idTrago,
+                     @UploadedFile() archivo
+    ){
+        console.log(archivo);
+        return {mensaje: 'ok'}
+    }
+
+    @Get('descargarArchivo/:idTrago')
+    descargarArchivo(
+        @Res() res,
+        @Param('idTrago') idTrago
+    ){
+        const originalname= 'problema.jpg';
+        const  path = 'C:\\Users\\DELL\\Documents\\GitHub\\castro-cacuango-jenny-karina\\01-http\\02-servidor-web-nodejs\\api\\archivos\\d01fa4a43cb82cbffcf395949627f816';
+       res.download(path, originalname)
+
+            }
 
     @Get('session')
     session(
