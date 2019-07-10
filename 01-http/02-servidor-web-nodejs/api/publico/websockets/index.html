@@ -48,15 +48,19 @@
         const nombreEtiquetaHTMLChat = "p";
         const parrafo = document.createElement(nombreEtiquetaHTMLChat);
 
-        const contenidoHTML=`
-    <div class="alert alert-primary" role="alert">
+        const contenidoHTML = `
+    <div class="alert alert-primary text-right" role="alert">
             ${texto}
-        </div>`;
-
+        </div>
+`;
 
         parrafo.innerHTML = contenidoHTML;
         anadirEtiqueta(idContenedor, parrafo);
         peticionHolaMundo(texto);
+
+        mensaje.value = "";
+        mensaje.focus();
+
     }
 
     function anadirEtiqueta(idEtiqueta, elementoHTML) {
@@ -97,6 +101,26 @@
             }
         );*/
 
+
+            socket.on(
+                'saludaran',
+                (data)=>{
+                    console.log('Nos saludaron', data);
+                    const nombreContenedor = 'contenedor-chat';
+
+                    const nombreEtiqueta = 'p';
+                    const parrafo = document.createElement(nombreEtiqueta);
+                    const HTMLParrafo = `
+                    <div class="alert alert-secondary" role="alert">
+                      ${data.nombre}
+                    </div>
+                    `;
+                    parrafo.innerHTML= HTMLParrafo;
+                    anadirEtiqueta(nombreContenedor, parrafo);
+                }
+            );
+
+
         function peticionHolaMundo(texto) {
             const nombreMetodo = 'holaMundo';
             const datos ={
@@ -109,13 +133,6 @@
                     console.log(respuesta)
                 }
             );
-
-            socket.on(
-                'saludaran',
-                (data)=>{
-                    console.log('Nos saludaron', data);
-                }
-            )
         }
 
     </script>
